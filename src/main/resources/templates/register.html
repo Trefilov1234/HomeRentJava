@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en">
+<head th:insert="fragments.html :: headerfiles">
+</head>
+<body>
+<header th:insert="fragments.html :: nav"></header>
+<br><br>
+<div class="container">
+    <div th:if="${newUser}">
+        <div th:if="${userInfo}" class="alert-secondary alert" role="alert">
+            <h4 th:text="${userInfo}"></h4>
+        </div>
+        <div class="col-sm-9 col-sm-7 col-lg-5 mx-auto">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Sign Up</h5>
+                    <form name="r" th:action="@{/reg}" th:object="${newUser}" method="post">
+                        <div class="form-label-group">
+                            <input th:field="*{firstName}" type="text" class="form-control"
+                                   id="firstname" name="firstname" placeholder="Firstname" required="true" minlength="1">
+                            <hr class="my-4">
+                            <input th:field="*{lastName}" type="text" class="form-control"
+                                   id="lastname" name="lastname" placeholder="Lastname" required="true" minlength="1">
+                            <hr class="my-4">
+                            <input th:field="*{patronymic}" type="text" class="form-control"
+                                   id="patronymic" name="patronymic" placeholder="Patronymic" required="true" minlength="1">
+                            <hr class="my-4">
+                            <input th:field="*{city}" type="text" class="form-control"
+                                   id="city" name="city" placeholder="City" required="true" minlength="1">
+                            <hr class="my-4">
+                            <input th:field="*{country}" type="text" class="form-control"
+                                   id="country" name="country" placeholder="Country" required="true" minlength="1">
+                            <hr class="my-4">
+                            <input th:field="*{nickname}" type="text" class="form-control"
+                                   id="nickname" name="nickname" placeholder="Nickname" required="true" minlength="2">
+                            <hr class="my-4">
+                            <input type="password" th:field="*{password}"  class="form-control"
+                                   id="password" name="password" placeholder="Password" required="true" minlength="4">
+                            <hr class="my-4">
+                            <input type="email" th:field="*{email}"  class="form-control"
+                                   id="email" name="email" placeholder="Email" required="true" minlength="5">
+                            <input type="date" th:field="*{birthday}"  class="form-control"
+                                   id="birthday" name="birthday" placeholder="Birthday" required="true" minlength="4">
+                            <hr class="my-4">
+                        </div>
+                        <hr class="my-4">
+                        <button class="btn btn-lg btn-outline-secondary btn-block text-uppercase" type="submit">Sign Up</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

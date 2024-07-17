@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <article class="col-sm-6">
+            <header>
+                <h3 class="display-2" th:text="${error}">Error</h3>
+            </header>
+            <section >
+                <p class="display-4" th:text="${message}">Message</p>
+            </section>
+            <section >
+                <p class="display-4" th:text="${timestamp}">Timestamp</p>
+            </section>
+            <section >
+                <p class="display-4" th:text="'Error'+${path}">Path</p>
+            </section>
+
+            <section >
+                <p class="display-4" th:text="${exception}">Exception</p>
+            </section>
+        </article>
+    </div>
+</div>
+
+</body>
+</html>
