@@ -20,8 +20,17 @@ public class UserController {
     private final UserService userService;
     @GetMapping("user/profile/{nickname}")
     public String openProfile(@PathVariable("nickname") String nickname, Model model){
-        model.addAttribute("user", userService.getUser(nickname));
+        User user=userService.getUser(nickname);
+        if(user.getTenantRating()<2||user.getLandLordRating()<2)
+        {
+            user.setEnable(false);
+        }
+        model.addAttribute("user", user);
         model.addAttribute("newUser", new User());
+        if(!user.isEnable()|| user.getTenantRating()<2||user.getLandLordRating()<2) {
+            model.addAttribute("ban",true);
+            return "/login";
+        }
         return "user/profile";
 
     }
@@ -38,7 +47,7 @@ public class UserController {
         {
             user.setBirthday(currUser.getBirthday());
         }
-        if(user.getPassword()==null) {
+        if(user.getPassword()==null||user.getPassword().isEmpty()) {
             user.setPassword(currUser.getPassword());
         }
         else {
@@ -46,10 +55,7 @@ public class UserController {
             String encodedPassword = encoder.encode(user.getPassword());
             user.setPassword(encodedPassword);
         }
-
         userService.saveUser(user);
-
-        System.out.println("ya tut");
 
         redirectAttributes.addFlashAttribute("user", user);
         redirectAttributes.addFlashAttribute("newUser", new User());

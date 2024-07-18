@@ -11,9 +11,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SearchService {
     private final HousingRepository housingRepository;
-    public List<Housing> getSearchedHousing(String search){
-        return housingRepository
-                .findAllByCityContainingOrCountryContainingOrRentDaysContainingOrPriceContainingOrRatingContaining(search, search, Long.parseLong(search) ,
-                        Long.parseLong(search),Long.parseLong(search));
+
+    public List<Housing> getSearchedHousingByCountry(String country){
+        return housingRepository.findAllByCountry(country);
+    }
+    public List<Housing> getSearchedHousingByCity(String city){
+        return housingRepository.findAllByCity(city);
+    }
+    public List<Housing> getSearchedHousingByRentDays(String rentDays){
+        return housingRepository.findAllByRentDays(Long.parseLong(rentDays));
+    }
+    public List<Housing> getSearchedHousingByPrice(String price){
+        return housingRepository.findAllByPrice(Long.parseLong(price));
+    }
+    public List<Housing> getSearchedHousingByRating(String rating){
+        return housingRepository.findAllByRating(Long.parseLong(rating));
     }
 }

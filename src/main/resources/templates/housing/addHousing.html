@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
+<html lang="en">
+<head th:insert="fragments.html :: headerfiles">
+</head>
+<body>
+<form th:action="@{'/addHouse/'+${#authentication.name}}" th:object="${housing}" method="post" enctype="multipart/form-data">
+    <div class="modal-body">
+        <div>
+            <label class="form-label" for="name">Name</label>
+            <input class="form-control" type="text" id="name" name="name"  th:field="*{name}" required>
+        </div>
+        <div>
+            <label class="form-label" for="city">City</label>
+            <input class="form-control" type="text" id="city" name="city"  th:field="*{city}" required>
+        </div>
+        <div>
+            <label class="form-label" for="country">Country</label>
+            <input class="form-control" type="text" id="country" name="country"  th:field="*{country}" required>
+        </div>
+        <div>
+            <label class="form-label" for="rentDays">Rent days</label>
+            <input class="form-control" type="text" id="rentDays" name="rentDays"  th:field="*{rentDays}" required>
+        </div>
+        <div>
+            <label class="form-label" for="price">Price</label>
+            <input class="form-control" type="text" id="price" name="price" th:field="*{price}" required>
+        </div>
+        <div>
+            <label class="form-label" for="rating">Rating</label>
+            <input class="form-control" type="text" id="rating"  name="rating" th:field="*{rating}">
+        </div>
+        <div>
+            <label class="form-label" for="description">Description</label>
+            <input class="form-control" type="text" id="description" name="description"  th:field="*{description}">
+        </div>
+        <div>
+            <label class="form-label" for="image1">Photo</label>
+            <input class="form-control" type="file" id="image1" name="image1">
+        </div>
+        <div class="modal-footer">
+            <input type="submit" class="btn btn-dark" value="Update">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

@@ -8,6 +8,7 @@
     <title>HomeRent</title>
     <link th:href="@{~/bootstrap.min.css}" rel="stylesheet" href="bootstrap.min.css">
     <link th:href="@{~/fontawesome/css/all.css}" rel="stylesheet" href="/fontawesome/css/all.css">
+    <link th:href="@{~/style.css}" rel="stylesheet" href="style.css">
 </head>
 <body>
 <div th:fragment="nav">
@@ -22,8 +23,8 @@
                         <a class="nav-link m-2 menu-item nav-active" href="#" th:href="@{~/}"><i class="fa fa-home"></i>Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link m-2 menu-item" href="#">
-                            About our e-shop
+                        <a class="nav-link m-2 menu-item" th:href="@{'housing/addHousing'}">
+                            Add housing for renting out
                         </a>
                     </li>
                     <li class="nav-item">

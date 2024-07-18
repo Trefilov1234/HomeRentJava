@@ -28,9 +28,18 @@ public class SecurityController {
 
     @RequestMapping("/default")
     public String defaultAfterLogin(HttpServletRequest request, RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("welcome",
-                "Welcome " + request.getUserPrincipal().getName());
-        return "redirect:/";
+
+        User user=userService.getUser(request.getUserPrincipal().getName());
+        if(!user.isEnable()|| user.getTenantRating()<2||user.getLandLordRating()<2) {
+
+            return "/login";
+        }
+        else {
+
+            redirectAttributes.addFlashAttribute("welcome",
+                    "Welcome " + request.getUserPrincipal().getName());
+            return "redirect:/";
+        }
     }
 
     @RequestMapping("register")

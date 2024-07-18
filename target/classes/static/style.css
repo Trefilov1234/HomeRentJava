@@ -1,0 +1,43 @@
+.profile-image{
+    width: 200px;
+    height: 200px;
+}
+.cont
+{
+    width:1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+.emailLink:hover
+{
+    text-decoration: underline ;
+    cursor: pointer;
+}
+.card-container
+{
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+
+}
+.card
+{
+    margin-right: 10px;
+}
+body
+{
+    /*background-color: rgb(77, 76, 76)!important;
+    color: white!important;*/
+}
+.upload-image{
+    width: 200px;
+    height: 300px;
+}
+.modal-text
+{
+    color:black!important;
+}

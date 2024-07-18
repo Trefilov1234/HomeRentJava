@@ -20,4 +20,8 @@ public class HousingService {
     {
         housingRepository.save(housing);
     }
+    public Housing getHousingById(Long id)
+    {
+        return housingRepository.getById(id);
+    }
 }

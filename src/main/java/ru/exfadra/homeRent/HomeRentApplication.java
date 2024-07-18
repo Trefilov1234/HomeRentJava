@@ -10,4 +10,5 @@ public class HomeRentApplication {
 		SpringApplication.run(HomeRentApplication.class, args);
 	}
 
+
 }

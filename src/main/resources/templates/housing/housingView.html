@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
+<html lang="en">
+<head th:insert="fragments.html :: headerfiles">
+</head>
+<body>
+<header th:insert="fragments.html :: nav"></header>
+<br><br>
+
+<div class="container" th:object="${housing}">
+    <h1 th:text="@{${housing.name}}"></h1>
+    <div th:if="${housing.getImage()==null}">
+        <img src="images/mute.png" alt="Item_Image" class="card-img-top">
+    </div>
+    <div th:if="${housing.getImage()}">
+        <img th:src="@{${housing.getDecodedImgPath()}}" alt="Item_Image" class="card-img-top">
+    </div>
+    <div th:text="@{'City: '+${housing.city}}"></div>
+    <div th:text="@{'Country: '+${housing.country}}"></div>
+    <div th:text="@{'Price: '+${housing.price}}"></div>
+    <div th:text="@{'Rating: '+${housing.rating}}"></div>
+    <div th:text="@{'Description: '+${housing.description}}"></div>
+    <div th:text="@{'LandLord: '+${housing.landLord.nickname}}"></div>
+    <div th:text="@{'Rent days: '+${housing.rentDays}}"></div>
+    <div th:if="${housing.tenant ne null}" th:text="@{'Tenant: '+${housing.tenant.nickname}}"></div>
+    <div th:if="${someWrong}" class="alert-secondary alert" role="alert">
+        <h3 th:text="${someWrong}"></h3>
+    </div>
+    <form th:action="@{/rent}">
+        <input th:name="housingId" th:value="${housing.id}" hidden/>
+        <input th:name="nickname" th:value="${#authentication.name}" hidden/>
+        <button class="btn btn-lg btn-outline-secondary btn-block text-uppercase" type="submit" th:text="@{${housing.tenant ne null} ? 'Rented' : 'Rent'}"
+        th:style="@{${housing.tenant ne null} ? 'pointer-events: none;' : 'pointer-events: auto;'}"></button>
+    </form>
+    <div th:if="@{${housing.tenant ne null}}">
+        <div th:if="@{${!housing.getTenantDone()}}">
+            <form th:action="@{/markTenaten}">
+
+                <input th:name="housingId" th:value="${housing.id}" hidden/>
+
+                <div th:if="@{${housing.getLandLord().nickname!=#authentication.name || tenantPass}}">
+                    <label>Tenant Rating</label>
+                    <input th:name="ratingTenant" th:value="${ratingTenant}" type="text"
+                           th:style="@{${housing.getTenantDone()} ? 'pointer-events: none;' : 'pointer-events: auto;'}"/>
+                    <input type="submit" th:style="@{${housing.getTenantDone()} ? 'pointer-events: none;' : 'pointer-events: auto;'}">
+                </div>
+            </form>
+        </div>
+        <div th:if="@{${!housing.getLandlordDone()}}">
+            <form th:action="@{/markLandlord}">
+                <input th:name="housingId" th:value="${housing.id}" hidden/>
+                <div th:if="@{${housing.getLandLord().nickname==#authentication.name}}">
+                    <label>Landlord Rating</label>
+                    <input th:name="ratingLandlord" th:value="${ratingLandlord}" type="text"
+                           th:style="@{${housing.getLandlordDone()} ? 'pointer-events: none;' : 'pointer-events: auto;'}"/>
+                    <input type="submit" th:style="@{${housing.getLandlordDone()} ? 'pointer-events: none;' : 'pointer-events: auto;'}">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

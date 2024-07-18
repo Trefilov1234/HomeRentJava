@@ -32,35 +32,49 @@ public class Housing {
     @Column(nullable = false)
     private Long rating;
 
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private String description;
+
+    @Column()
+    private Boolean tenantDone;
+
+    @Column()
+    private Boolean landlordDone;
+
+    @Column()
+    private byte[] image;
+
     @OneToOne (cascade = CascadeType.ALL)
     private User landLord;
 
     @OneToOne (cascade = CascadeType.ALL)
     private User tenant;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "housing")
-    private List<HouseImage> images = new java.util.ArrayList<>();
 
-    public Housing(String city, String country, Long rentDays, Long price, Long rating, User landLord, User tenant, List<HouseImage> images) {
+    public Housing() {
+    }
+
+    public Housing(String city, String country, Long rentDays, Long price,
+                   Long rating, String name, String description, Boolean tenantDone, Boolean landlordDone, byte[] image, User landLord, User tenant) {
         this.city = city;
         this.country = country;
         this.rentDays = rentDays;
         this.price = price;
         this.rating = rating;
+        this.name = name;
+        this.description = description;
+        this.tenantDone = tenantDone;
+        this.landlordDone = landlordDone;
+        this.image = image;
         this.landLord = landLord;
         this.tenant = tenant;
-        this.images = images;
     }
 
-    public Housing() {
-    }
 
-    public List<String> imagesPaths(){
-        List<String> imagePaths = new ArrayList<>();
-
-        for(HouseImage houseImage: images){
-            imagePaths.add(houseImage.getDecodedImgPath());
-        }
-        return imagePaths;
+    public String getDecodedImgPath(){
+        return new String(Base64.getDecoder().decode(image));
     }
 }
