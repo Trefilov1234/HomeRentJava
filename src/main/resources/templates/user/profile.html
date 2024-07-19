@@ -13,17 +13,17 @@
 <header th:insert="fragments.html :: nav"></header>
 <br><br>
 
-<div class="container" th:object="${user}">
-    <h1 th:text="@{${user.nickname}}"></h1>
-    <div th:text="@{'Firstname: '+${user.firstName}}"></div>
-    <div th:text="@{'Lastname: '+${user.lastName}}"></div>
-    <div th:text="@{'Patronymic: '+${user.patronymic}}"></div>
-    <div th:text="@{'City: '+${user.city}}"></div>
-    <div th:text="@{'Country: '+${user.country}}"></div>
-    <div th:text="@{'Birthday: '+${user.birthday}}"></div>
-    <div th:text="@{'Email: '+${user.email}}"></div>
-    <div th:text="@{'Tenant rating: '+${user.tenantRating}}"></div>
-    <div th:text="@{'Landlord rating: '+${user.landLordRating}}"></div>
+<div class="container cont" th:object="${user}">
+    <h1 th:text="@{${user.nickname}}" ></h1>
+    <h3 th:text="@{'Firstname: '+${user.firstName}}"></h3>
+    <h3 th:text="@{'Lastname: '+${user.lastName}}"></h3>
+    <h3 th:text="@{'Patronymic: '+${user.patronymic}}"></h3>
+    <h3 th:text="@{'City: '+${user.city}}"></h3>
+    <h3 th:text="@{'Country: '+${user.country}}"></h3>
+    <h3 th:text="@{'Birthday: '+${#dates.format(user.birthday, 'dd-MM-yyyy')}}"></h3>
+    <h3 th:text="@{'Email: '+${user.email}}"></h3>
+    <h3 th:text="@{'Tenant rating: '+${user.tenantRating}}"></h3>
+    <h3 th:text="@{'Landlord rating: '+${user.landLordRating}}"></h3>
     <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="margin-top: 5px;">
         Update data
     </button>

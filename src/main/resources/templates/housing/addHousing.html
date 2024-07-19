@@ -6,6 +6,9 @@
 <head th:insert="fragments.html :: headerfiles">
 </head>
 <body>
+<header th:insert="fragments.html :: nav"></header>
+<br><br>
+<div class="cont">
 <form th:action="@{'/addHouse/'+${#authentication.name}}" th:object="${housing}" method="post" enctype="multipart/form-data">
     <div class="modal-body">
         <div>
@@ -30,21 +33,28 @@
         </div>
         <div>
             <label class="form-label" for="rating">Rating</label>
-            <input class="form-control" type="text" id="rating"  name="rating" th:field="*{rating}">
+            <input class="form-control" type="text" id="rating"  name="rating" th:field="*{rating}" required>
         </div>
         <div>
             <label class="form-label" for="description">Description</label>
-            <input class="form-control" type="text" id="description" name="description"  th:field="*{description}">
+            <textarea class="form-control"  id="description" name="description"  th:field="*{description}" required></textarea>
         </div>
         <div>
             <label class="form-label" for="image1">Photo</label>
             <input class="form-control" type="file" id="image1" name="image1">
         </div>
-        <div class="modal-footer">
-            <input type="submit" class="btn btn-dark" value="Update">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-        </div>
+        <input type="submit" class="btn btn-dark" value="Add">
     </div>
 </form>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    document.querySelector('#image1').onchange = function() {
+      if (this.files[0].size > 1048576) { // Ограничение размера файла до 1МБ: 1024 * 1024
+        alert('Размер файла превышен, выберите файл меньше 1МБ.');
+        this.value = '';
+      }
+        };
+</script>
 </body>
 </html>

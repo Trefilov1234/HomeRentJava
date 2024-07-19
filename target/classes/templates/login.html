@@ -9,6 +9,12 @@
 <!--<header th:insert="fragments.html :: nav"></header>-->
 <br><br>
 <div class="container">
+        <div th:if="${userInfo}" class="alert-secondary alert" role="alert">
+            <h3 th:text="${userInfo}"></h3>
+        </div>
+        <div th:if="${ban}" class="alert-secondary alert" role="alert">
+            <h3 th:text="${ban}"></h3>
+        </div>
         <div class="row">
             <div class="col-sm-9 col-sm-7 col-lg-5 mx-auto">
                 <div class="card-body">

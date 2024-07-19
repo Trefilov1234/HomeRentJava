@@ -28,7 +28,7 @@ public class UserController {
         model.addAttribute("user", user);
         model.addAttribute("newUser", new User());
         if(!user.isEnable()|| user.getTenantRating()<2||user.getLandLordRating()<2) {
-            model.addAttribute("ban",true);
+            model.addAttribute("ban","user is blocked");
             return "/login";
         }
         return "user/profile";

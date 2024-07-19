@@ -10,6 +10,7 @@
     flex-direction: column;
     align-items: center;
     height: 100%;
+    margin-bottom: 100px;
 }
 .emailLink:hover
 {
@@ -40,4 +41,10 @@ body
 .modal-text
 {
     color:black!important;
+}
+.housingImage
+{
+    width: 600px;
+    height: 400px;
+    object-fit: contain;
 }

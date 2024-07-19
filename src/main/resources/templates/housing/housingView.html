@@ -9,25 +9,25 @@
 <header th:insert="fragments.html :: nav"></header>
 <br><br>
 
-<div class="container" th:object="${housing}">
+<div class="container cont" th:object="${housing}">
     <h1 th:text="@{${housing.name}}"></h1>
     <div th:if="${housing.getImage()==null}">
         <img src="images/mute.png" alt="Item_Image" class="card-img-top">
     </div>
     <div th:if="${housing.getImage()}">
-        <img th:src="@{${housing.getDecodedImgPath()}}" alt="Item_Image" class="card-img-top">
+        <img th:src="@{'/'+${housing.getDecodedImgPath()}}" alt="Item_Image" class="card-img-top housingImage">
     </div>
-    <div th:text="@{'City: '+${housing.city}}"></div>
-    <div th:text="@{'Country: '+${housing.country}}"></div>
-    <div th:text="@{'Price: '+${housing.price}}"></div>
-    <div th:text="@{'Rating: '+${housing.rating}}"></div>
-    <div th:text="@{'Description: '+${housing.description}}"></div>
-    <div th:text="@{'LandLord: '+${housing.landLord.nickname}}"></div>
-    <div th:text="@{'Rent days: '+${housing.rentDays}}"></div>
-    <div th:if="${housing.tenant ne null}" th:text="@{'Tenant: '+${housing.tenant.nickname}}"></div>
-    <div th:if="${someWrong}" class="alert-secondary alert" role="alert">
+    <h5 th:text="@{'City: '+${housing.city}}"></h5>
+    <h5 th:text="@{'Country: '+${housing.country}}"></h5>
+    <h5 th:text="@{'Price: '+${housing.price}}"></h5>
+    <h5 th:text="@{'Rating: '+${housing.rating}}"></h5>
+    <h5 th:text="@{'Description: '+${housing.description}}"></h5>
+    <h5 th:text="@{'LandLord: '+${housing.landLord.nickname}}"></h5>
+    <h5 th:text="@{'Rent days: '+${housing.rentDays}}"></h5>
+    <h5 th:if="${housing.tenant ne null}" th:text="@{'Tenant: '+${housing.tenant.nickname}}"></h5>
+    <h5 th:if="${someWrong}" class="alert-secondary alert" role="alert">
         <h3 th:text="${someWrong}"></h3>
-    </div>
+    </h5>
     <form th:action="@{/rent}">
         <input th:name="housingId" th:value="${housing.id}" hidden/>
         <input th:name="nickname" th:value="${#authentication.name}" hidden/>
@@ -42,7 +42,7 @@
 
                 <div th:if="@{${housing.getLandLord().nickname!=#authentication.name || tenantPass}}">
                     <label>Tenant Rating</label>
-                    <input th:name="ratingTenant" th:value="${ratingTenant}" type="text"
+                    <input maxlength="1" oninput="this.value = this.value.replace(/[^1-5]/g,'')" th:name="ratingTenant" th:value="${ratingTenant}" type="text"
                            th:style="@{${housing.getTenantDone()} ? 'pointer-events: none;' : 'pointer-events: auto;'}"/>
                     <input type="submit" th:style="@{${housing.getTenantDone()} ? 'pointer-events: none;' : 'pointer-events: auto;'}">
                 </div>
@@ -53,7 +53,7 @@
                 <input th:name="housingId" th:value="${housing.id}" hidden/>
                 <div th:if="@{${housing.getLandLord().nickname==#authentication.name}}">
                     <label>Landlord Rating</label>
-                    <input th:name="ratingLandlord" th:value="${ratingLandlord}" type="text"
+                    <input maxlength="1" oninput="this.value = this.value.replace(/[^1-5]/g,'')" th:name="ratingLandlord" th:value="${ratingLandlord}" type="text"
                            th:style="@{${housing.getLandlordDone()} ? 'pointer-events: none;' : 'pointer-events: auto;'}"/>
                     <input type="submit" th:style="@{${housing.getLandlordDone()} ? 'pointer-events: none;' : 'pointer-events: auto;'}">
                 </div>

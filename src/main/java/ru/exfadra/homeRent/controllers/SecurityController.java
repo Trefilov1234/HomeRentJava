@@ -27,11 +27,12 @@ public class SecurityController {
     }
 
     @RequestMapping("/default")
-    public String defaultAfterLogin(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+    public String defaultAfterLogin(HttpServletRequest request, RedirectAttributes redirectAttributes,Model model) {
 
         User user=userService.getUser(request.getUserPrincipal().getName());
         if(!user.isEnable()|| user.getTenantRating()<2||user.getLandLordRating()<2) {
 
+            model.addAttribute("ban","user is blocked");
             return "/login";
         }
         else {
