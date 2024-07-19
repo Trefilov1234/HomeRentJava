@@ -48,7 +48,7 @@ public class HousingController {
     public String addHouse(@ModelAttribute Housing housing,@PathVariable("nickname") String nickname,@RequestParam("image1") MultipartFile file,
                            RedirectAttributes redirectAttributes) throws IOException {
         User user=userService.getUser(nickname);
-        if(!user.isEnable()|| user.getTenantRating()<2||user.getLandLordRating()<2) {
+        if(!user.isEnable()|| user.getTenantRating()==1||user.getLandLordRating()==1) {
             redirectAttributes.addFlashAttribute("ban","user is blocked");
             return "redirect:/login";
         }
@@ -87,7 +87,7 @@ public class HousingController {
             RedirectAttributes redirectAttributes)
     {
         User user = userService.getUser(nickname);
-        if(!user.isEnable()|| user.getTenantRating()<2||user.getLandLordRating()<2) {
+        if(!user.isEnable()|| user.getTenantRating()==1||user.getLandLordRating()==1) {
             redirectAttributes.addFlashAttribute("ban","user is blocked");
             return "redirect:/login";
         }
@@ -115,13 +115,14 @@ public class HousingController {
 
         Housing housing=housingService.getHousingById(Long.parseLong(housingId));
         User user=userService.getUser(housing.getTenant().getNickname());
-        if(!user.isEnable()|| user.getTenantRating()<2||user.getLandLordRating()<2) {
+        if(!user.isEnable()|| user.getTenantRating()==1||user.getLandLordRating()==1) {
             redirectAttributes.addFlashAttribute("ban","user is blocked");
             return "redirect:/login";
         }
             if(!tenantRating.isEmpty()) {
 
-                housing.getLandLord().setLandLordRating((housing.getLandLord().getLandLordRating() + Long.parseLong(tenantRating)) / 2);
+                housing.getLandLord().setLandlordMarkCount( housing.getLandLord().getLandlordMarkCount()+1);
+                housing.getLandLord().setLandLordRating((housing.getLandLord().getLandLordRating() + Long.parseLong(tenantRating)) / housing.getLandLord().getLandlordMarkCount());
                 if(housing.getLandLord().getLandLordRating()>5) housing.getLandLord().setLandLordRating(5L);
                 housing.setTenantDone(true);
 
@@ -140,13 +141,14 @@ public class HousingController {
 
         Housing housing=housingService.getHousingById(Long.parseLong(housingId));
         User user=userService.getUser(housing.getLandLord().getNickname());
-        if(!user.isEnable()|| user.getTenantRating()<2||user.getLandLordRating()<2) {
+        if(!user.isEnable()|| user.getTenantRating() == 1 ||user.getLandLordRating() == 1) {
             redirectAttributes.addFlashAttribute("ban","user is blocked");
             return "redirect:/login";
         }
 
         if(!landlordRating.equals("")) {
-            housing.getTenant().setTenantRating((housing.getTenant().getTenantRating() + Long.parseLong(landlordRating)) / 2);
+            housing.getTenant().setTenantMarkCount( housing.getTenant().getTenantMarkCount()+1);
+            housing.getTenant().setTenantRating((housing.getTenant().getTenantRating() + Long.parseLong(landlordRating)) / housing.getTenant().getTenantMarkCount());
             if(housing.getTenant().getTenantRating()>5) housing.getTenant().setTenantRating(5L);
             housing.setLandlordDone(true);
         }

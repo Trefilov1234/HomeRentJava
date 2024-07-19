@@ -57,6 +57,8 @@ public class UserService {
             user.setEnable(true);
             user.setLandLordRating(2L);
             user.setTenantRating(2L);
+            user.setLandlordMarkCount(1L);
+            user.setTenantMarkCount(1L);
             PasswordEncoder encoder = new BCryptPasswordEncoder();
             String encodedPassword = encoder.encode(user.getPassword());
             user.setPassword(encodedPassword);

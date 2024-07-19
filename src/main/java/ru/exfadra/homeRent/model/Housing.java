@@ -57,8 +57,8 @@ public class Housing {
     public Housing() {
     }
 
-    public Housing(String city, String country, Long rentDays, Long price,
-                   Long rating, String name, String description, Boolean tenantDone, Boolean landlordDone, byte[] image, User landLord, User tenant) {
+    public Housing(String city, String country, Long rentDays, Long price, Long rating,
+                   String name, String description, Boolean tenantDone, Boolean landlordDone, byte[] image, User landLord, User tenant) {
         this.city = city;
         this.country = country;
         this.rentDays = rentDays;

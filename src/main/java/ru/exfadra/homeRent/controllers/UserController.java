@@ -21,13 +21,13 @@ public class UserController {
     @GetMapping("user/profile/{nickname}")
     public String openProfile(@PathVariable("nickname") String nickname, Model model){
         User user=userService.getUser(nickname);
-        if(user.getTenantRating()<2||user.getLandLordRating()<2)
+        if(user.getTenantRating()==1||user.getLandLordRating()==1)
         {
             user.setEnable(false);
         }
         model.addAttribute("user", user);
         model.addAttribute("newUser", new User());
-        if(!user.isEnable()|| user.getTenantRating()<2||user.getLandLordRating()<2) {
+        if(!user.isEnable()|| user.getTenantRating()==1||user.getLandLordRating()==1) {
             model.addAttribute("ban","user is blocked");
             return "/login";
         }

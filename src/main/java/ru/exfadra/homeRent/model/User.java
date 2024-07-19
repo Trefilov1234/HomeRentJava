@@ -54,6 +54,12 @@ public class User {
     @Column(nullable = false)
     private Long landLordRating;
 
+    @Column()
+    private Long tenantMarkCount;
+
+    @Column()
+    private Long landlordMarkCount;
+
     @Column(name="enabled",nullable = false)
     private boolean isEnable;
 
@@ -63,9 +69,9 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String lastName, String patronymic,
-                String city, String country, String nickname, String password,
-                Date birthday, String email, Long tenantRating, Long landLordRating, boolean isEnable, String roles) {
+    public User(String firstName, String lastName, String patronymic, String city,
+                String country, String nickname, String password, Date birthday, String email,
+                Long tenantRating, Long landLordRating, Long tenantMarkCount, Long landlordMarkCount, boolean isEnable, String roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.patronymic = patronymic;
@@ -77,6 +83,8 @@ public class User {
         this.email = email;
         this.tenantRating = tenantRating;
         this.landLordRating = landLordRating;
+        this.tenantMarkCount = tenantMarkCount;
+        this.landlordMarkCount = landlordMarkCount;
         this.isEnable = isEnable;
         this.roles = roles;
     }

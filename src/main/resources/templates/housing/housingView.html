@@ -8,7 +8,9 @@
 <body>
 <header th:insert="fragments.html :: nav"></header>
 <br><br>
-
+<h5 th:if="${someWrong}" class="alert-secondary alert" role="alert">
+    <h3 th:text="${someWrong}"></h3>
+</h5>
 <div class="container cont" th:object="${housing}">
     <h1 th:text="@{${housing.name}}"></h1>
     <div th:if="${housing.getImage()==null}">
@@ -25,9 +27,7 @@
     <h5 th:text="@{'LandLord: '+${housing.landLord.nickname}}"></h5>
     <h5 th:text="@{'Rent days: '+${housing.rentDays}}"></h5>
     <h5 th:if="${housing.tenant ne null}" th:text="@{'Tenant: '+${housing.tenant.nickname}}"></h5>
-    <h5 th:if="${someWrong}" class="alert-secondary alert" role="alert">
-        <h3 th:text="${someWrong}"></h3>
-    </h5>
+
     <form th:action="@{/rent}">
         <input th:name="housingId" th:value="${housing.id}" hidden/>
         <input th:name="nickname" th:value="${#authentication.name}" hidden/>
